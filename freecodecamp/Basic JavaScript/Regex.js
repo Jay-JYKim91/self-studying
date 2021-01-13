@@ -94,5 +94,34 @@ let british = 'colour';
 let rainbowRegex = /colou?r/;
 rainbowRegex.test(american) //returns true
 rainbowRegex.test(american) //returns true
+//Lookaheads are patterns that tell JavaScript to look-ahead in your string to check for patterns further along. This can be useful when you want to search for multiple patterns over the same thing.
+//There are two kinds of lookaheads: positive lookahead and negative lookahead.
+//A positive lookahead will look to make sure the element in the search pattern is there, but won't actually match it. A positive lookahead is used as (?=...) where the ... is the required part that is not matched.
+//On the other hand, a negative lookahead will look to make sure the element in the search pattern is not there. A negative lookahead is used as (?!...) where the ... is the pattern that you do not want to be there. The rest of the pattern is returned if the negative lookahead part if not present.
+let quit = "qu";
+let noquit = 'qt';
+let quRegex = /q(?=u)/;
+let qRegex = /q(?!u)/;
+quit.match(quRegex); //returns ['q'];
+noquit.match(qRegex); //returns ['q'];
 
+let password = "abc123";
+let checkPass = /(?=\w{3,6})(?=\D*\d)/;
+checkPass.test(password); //returns true;
 
+let testStr = "Pumpkin";
+let testRegex = /P(engu|umpk)in/;
+testRegex.test(testStr); //returns true;
+//You can search for repeat substrings using capture groups. Parentheses, ( and ), are used to find repeat substrings. You put the regex of the pattern that will repeat in between the parentheses. To specify where that repeat string will appeaar, you use a backlash(\) and then a number. This number starts at 1 and increases with each additional capture group you use. An example would be \1 to match the first group.
+let repeatStr = "regex regex";
+let repeatRegex = /(\w+)\s\1/;
+repeatRegex.test(repeatStr); //returns true
+repeatStr.match(repeatRegex); //returns ['regex regex', 'regex'];
+
+let wrongText = "The sky is silver";
+let silverRegex = /silver/;
+worngText.replace(silverRegex, 'blue');
+
+let hello = "  Hello, World!  ";
+let wsRegex = /^\s+|\s+$/g;
+let retuls = hello.replace(wsRegex, "");
