@@ -5,3 +5,32 @@ flex-flow: column/row wrap/no-wrap;
 align-content: 여러 줄들 사이의 간격을 지정하며, 세로선 상에 여분의 공간이 있는 경우 flex컨테이너 사이의 간격을 조절함. flex-start, flex-end, center, space-between, space-around, stretch(default)가 있다.
 align-items: 컨테이너 안에서 어떻게 모든 요소들이 정렬하는지를 지정합니다. flex 요소를 세로선 상에서 정렬합니다. flex-start, flex-end, center, baseline, stretch(default)가 있다.
 한 줄만 있는 경우, align-content는 효과를 보이지 않습니다.
+
+Floating elements are removed from the normal flow of a document and pushed to either the left or right of their containing parent element. It's commonly used with the width property to specify how much horizontal space the floated element requires.
+
+When elements are positioned to overlap(i.e. using position: absolute, relative, fixed, sticky), the elemtent coming later in the HTML markup will, by default, appear on the top of the other elements. However, the z-index property can specify the order of how elements are stacked on top of one another. It must be an integer (i.e. a whole number and not a decimal), and higher values for the z-index property of an element move it higher in the stack than those with lower values. 숫자가 클수록 위로 올라옴
+
+background: linear-gradient(gradient_direction, color1, color2, color3, ...)
+gradient_direction: 90deg(horizontal gradient - from left to right), 45deg(diagonal gradient - from bottom left to top right)
+
+The repeating-linear-gradient() function is very similar to linear-gradient() with the major difference that it repeats the specified gradient pattern. repeating-linear-gradient() accepts variety of values, but for siimplicity, you'll work with an angel value and color stop values in this challenge.
+The angle value is the direction of the gradient. Color stops are like width values that mark where a transition takes place, and are given with a percentage or number of pixels.
+ex) repeating-linear-gradient(45deg, yellow 0px, yellow 40px, black 40px, black 80px);
+
+To change the scale of an element, CSS has the transform property, along with its scale() function. The following code example doubles the size of all the paragraph elements on the page:
+p {
+  transform: scale(2);
+}
+
+The next fuction of the transform property is skewX(), which skews the selected element along its X(horizontal) axis by a given degree.
+p {
+  transform: skewX(-32deg);
+}
+
+You need to understand the ::before and ::after pseudo-elements. These pseudo-elements are used to add something before or after a selected element. In the following example, a ::before pseudo-element is used to add a rectangle to an element with the class heart:
+For the ::before and ::after pseudo-elements to function properly, they must have a defined content property. This property is used to add things like a photo or text to the selected element. When the ::before and ::after pseudo-elements are used to make shapes, the content property is still required, but it's set to an empty string. In the above example, the element with the class of heart has a ::before pseudo-element that produces a yellow rectangle with height and width of 50px and 70px, respectivly. This rectangle has round corners due to its 25% border radius and is positioned absoulutely at 5px fron the left and 50px above the top of the element.
+
+To animate an element, you need to know avout the animation properties and the @keyframes rule. The animation properties control how the animation should behave and the @keyframes rule controls what happends during that animation. There are eight animation properties in total.
+animation-name sets the name of the animation, which is later used by @keyframes to tell CSS which rulses go with which animations.
+animation-duration sets the length of time for the animation.
+@keyframes is how to specify exactly what happens within the animation over the duration. This is done by giving CSS properties for specific "frames" during the animation, with percentages ranging from 0% and 100%. If you compare this to a movie, the CSS properties for 0% is how the element displays in the opening scene. The CSS properties for 100% is how the element appears at the end, right before the credits roll. Then CSS applies the magic to transition the element over the given duration to act out the scene.
