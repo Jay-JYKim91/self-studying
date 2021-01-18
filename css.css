@@ -31,6 +31,144 @@ You need to understand the ::before and ::after pseudo-elements. These pseudo-el
 For the ::before and ::after pseudo-elements to function properly, they must have a defined content property. This property is used to add things like a photo or text to the selected element. When the ::before and ::after pseudo-elements are used to make shapes, the content property is still required, but it's set to an empty string. In the above example, the element with the class of heart has a ::before pseudo-element that produces a yellow rectangle with height and width of 50px and 70px, respectivly. This rectangle has round corners due to its 25% border radius and is positioned absoulutely at 5px fron the left and 50px above the top of the element.
 
 To animate an element, you need to know avout the animation properties and the @keyframes rule. The animation properties control how the animation should behave and the @keyframes rule controls what happends during that animation. There are eight animation properties in total.
+  CSS 애니메이션에서 구간을 정하고 각 구간 별로 어떤 스타일을 적용 시킬지 정하는 문법
+  - animation-name: @keyframes가 적용될 애니메이션의 이름, 사용자가 직접 지정;
+  - stage: from-to로 0~100%;
+  - css 스타일
 animation-name sets the name of the animation, which is later used by @keyframes to tell CSS which rulses go with which animations.
 animation-duration sets the length of time for the animation.
 @keyframes is how to specify exactly what happens within the animation over the duration. This is done by giving CSS properties for specific "frames" during the animation, with percentages ranging from 0% and 100%. If you compare this to a movie, the CSS properties for 0% is how the element displays in the opening scene. The CSS properties for 100% is how the element appears at the end, right before the credits roll. Then CSS applies the magic to transition the element over the given duration to act out the scene.
+animation-duration: 길이, 동작하는 시간 설정
+animation-timing-function: 속도 조절 / linear, ease, ease-in, ease-out, ease-in-out, cubic-bezier
+animation-delay: 시작 전 지연시간 설정
+animation-iteration-count: 반복 횟수 지정
+animation-direction: 반복 방향 설정 (정방향, 역박향, 번갈아)
+animation-fill-mode: 애니메이션 시작/끝 상태 제어(none, forwards/backwards/both)
+@keyframes fadeOut{
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.memo {
+  animation-name: fadeOut;
+  animation-duration: 4s;
+  animation-timing-function: linear;
+  animation-delay: 1s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+(=)
+.memo {
+  animation: fadeOut 4s 1s infinite linear alternate;
+}
+
+%Vendor Prefixes%
+크롬&사파리: -webkit-
+파이어폭스: -moz-
+오페라: -o-
+인터넷 익스플로러: -ms-
+.memo {
+    -webkit-animation: fadeOut 4s 1s infinite linear alternate;
+    -moz-animation: fadeOut 4s 1s infinite linear alternate;
+    -ms-animation: fadeOut 4s 1s infinite linear alternate;
+    -o-animation: fadeOut 4s 1s infinite linear alternate;
+    animation: fadeOut 4s 1s infinite linear alternate;
+}
+@-webkit-keyframes fadeOut { /* your style */ }
+@-moz-keyframes fadeOut { /* your style */ }
+@-ms-keyframes fadeOut { /* your style */ }
+@-o-keyframes fadeOut { /* your style */ }
+@keyframes fadeOut { /* your style */ }
+
+가상클래스(Pseudo-class)는 별도의 class를 지정하지 않아도 지정한 것 처럼 요소를 선택할 수 있음.
+가상요소(Pseudo-element)는 가상클래스처럼 선택자(selector)에 추가되며, 존재하지 않는 요소를 존재하는 것처럼 부여하여 문서의 특정 부분 선택이 가능함.
+
+<div class="test">
+  <ul>
+    <li>가 : 가나다라마바사</li>
+    <li>아 : 자차카타파하</li>
+  </ul>
+</div>
+.test ul li:first-child {font-weight: bold};
+.test ul li::first-letter {font-size: 20px; color: blue;}
+
+- :first-child(가상클래스) -> 클래스를 지정하지 않았지만 li의 첫번째 자식요소를 선택하여 제어할 수 있음;
+- ::first-letter(가상요소) -> li 내의 첫번째 글자를 감싸고 있는 요소가 없어도 있는 것과 같이 제어할 수 있음.
+
+::first-line -> 요소의 텍스트에서 첫 줄에 스타일 적용
+::first-letter -> 요소의 첫 번째 글자에 스타일 적용
+::before -> 요소의 콘텐츠 시작 부분에 생성된 콘텐츠 추가, 실제 내용 바로 앞에서 생성되는 자식 요소(content라는 속성 필수)
+::after -> 요소의 콘텐츠 끝 부분에 생성된 콘텐츠 추가, 실제 내용 바로 뒤에서 생성되는 자식요소(content라는 속성 필수)
+::selection -> 요소의 텍스트에서 사용자에 의하여 선택(드래그)된 영역의 속성 변경
+::placeholder -> 인풋 필드에 힌트 텍스트에 스타일 적용
+
+%::before, ::after에 꼭 필요한 content속성은 가짜 속성! HTML문서에 정보로 포함되지 않는 요소를 CSS에서 새롭게 생성시켜 주기 때문%
+- normal: 아무것도 표시하지 않는 기본값
+- string: 문자열 생성
+- image: 이미지/비디오 불러 올 수 있음, 크기 조절 불가
+- counter: 순서 매길 수 있음, counter-increment,  counter-reset
+- none: 아무것도 표시하지 않음
+- attr: 해당 속성의 속성값 표시
+
+<ul class="test">
+  <li><a href="#">login</a></li>
+  <li><a href="#">home</a></li>
+  <li><a href="#">sitemap</a></li>
+</ul>
+.test li {float: left; margin-right: 5px;}
+.test li::before {padding-left: 5px; content: "|";}
+.test li::first-child::before{content: "";}
+login | home |sitemap
+
+<h1>오늘의 메뉴</h1>
+<ul class="test">
+  <li><a href="">한식</a></li>
+  <li><a href="">중식</a></li>
+  <li><a href="">일식</a></li>
+</ul>
+.test li {line-height: 3;}
+.test li a::before {content: "진짜 맛있는"; width: 40px; padding: 3px 6px; margin: 0 5px; border-radius: 4px; background-color: red; text-align: center; color: white;}
+
+@mixin은 sass언어에서 재사용성을 강조한 것. 선언할때는 @mixin, 적용할 때는 @include지시자 사용.
+
+@mixin button {
+  border-radius: 3em;
+  border: 1px blue solid;
+  cursor: pointer;
+  padding: 1em;
+}
+.is-primary {
+  @include button;
+  background-color: yellow;
+}
+%인수 사용 가능%
+@mixin rounded ($radius: 10px) {
+  border-radius: $radius;
+  -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
+}
+.box {
+  @include rounded();
+}
+.box-wrap {
+  @include rounded(20px);
+}
+
+@mixin transition($transition...) {
+  -moz-transition: $transition;
+  -webkit-transition: $transition;
+  -o-transition: $transition;
+  transition: $transition;
+}
+(=)
+@mixin transition($time) {
+  @each $prefix in -moz-, -o-, -webkit-. '' {
+    #{$prefix}transition: $time;
+  }
+}
+.move-button {
+  @include transition(all 0.3s);
+}
