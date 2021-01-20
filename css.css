@@ -172,3 +172,42 @@ login | home |sitemap
 .move-button {
   @include transition(all 0.3s);
 }
+
+In CSS grid, the content of each item is located in a box which is referred to as a cell. You can align the content's position within its cell horizontally using the 'justify-self' property on a grid item. By default, this property has a value of stretch, which will make the content fill the whold width of the cell.
+start: aligns the content at the left of the cell
+center : aligns the content in the center of the cell
+end: aligns the content at the right of the cell.
+As you can align an item horizontally, there's a way to align an item vertically as well. To do this, you use the align-self property on an item.
+
+You can group cells of your grid together into an area and give the area a custom name. Do this by using grid-template-areas on the conatiner like this:
+grid-template-areas:
+  "header header header"
+  "advert content content"
+  "footer footer footer";
+The code above merges the top threee cells together into an area named header, the bottom three cells into a footer area, and it makes two areas in the middle row; advert and content. Every word in the code represents a cell and every pair of quotation marks represent a row. In addition to custom labels, you can use a period(.) to designate an empty cell in the grid.
+After creating an area's template for your grid conatiner, as shown in the previous challenge, you can place an item in your custom area by referencing the name you gave it. To do this, you use the grid-area property on an item like this:
+.item1 {
+  grid-area: header;
+}
+This lets the grid know that you want the item1 class to go in the area named header. In this case, the item will use the entire toop row because that whole row is named as the header area.
+
+The grid-area property you learned in the last challenge can be used in another way, If your grid doesn't have an areas template to reference, you can create an area on the fly for an item to be placed like this:
+item1 {
+  grid-area: 1/1/2/4;
+}
+This is using the line numbers you learned about earlier to define where the area for this item will be. The numbers in the example above represent thses values:
+grid-area: horizontal line to start at / vertical line to start at / horizontal line to end at / vertical line to end at
+
+grid-template-columns: repeat(2, 1fr 50px) 20px;
+(=)
+grid-template-columns: 1fr 50px 1fr 50px 20px;
+
+There's another built-in function to use with grid-template-columns and grid-template-rows call minmax. It's used to limit the size of items when the grid container changes size. To do this you need to specify the acceptable size range for your item.
+grid-template-columns: 100px minmax(50px, 200px)
+In this code above, grid-template-columns is set to create two columns; the first 100px wide, and the second has the minimun width of 50px and the maximum width of 200px.
+The repeat function comes with an option called auto-fill. This allows you to automatically insert as many rows or columns of your desired size as possible depending on the size of the container. You can create flexible layouts when combining auto-fill with minmax, like this:
+repeat(auto-fill, minmax(60px, 1fr));
+auto-fit works almost identically to auto-fill. This only difference is that when the conatiner's size exceeds the size of all the items combined, auto-fill keeps inserting empty rows or columns and pushes your items to the sied, while auto-fit collapses those empty rows or columns and stretches your items to fit the size of the container.
+If your container can't fit all your items on one row, it will move them down to a new one.
+
+Turning an element into a grid only affetcts the behavior of its direct descendants. So by turning a direct descendant into a grid, you have a grid within a grid.
