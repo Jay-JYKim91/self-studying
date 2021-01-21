@@ -211,3 +211,28 @@ auto-fit works almost identically to auto-fill. This only difference is that whe
 If your container can't fit all your items on one row, it will move them down to a new one.
 
 Turning an element into a grid only affetcts the behavior of its direct descendants. So by turning a direct descendant into a grid, you have a grid within a grid.
+
+There are several useful properties for the flex items.
+The first is the flex-shrink property. When it's used, it allows an item to shrink if the flex container is too small. Items shrink when the width of the parent container is smaller than the combined widths of all the flex items within it.
+The flex-shrink property takes the numbers as values. The higher the number, the more it will shrink compared to the other items ini the conatiner. For example, if one item has a flex-shrink value of 1 and the other has a flex-shrink value of 3, the one with the value of 3 will shrink three times as much as the other.
+
+The opposite of flex-shrink is the flex-grow property. Recall that flex-shrink controls the size of the items when the container shrinks. The flex-grow property controls the size of items when the parent container expands.
+Using a similar example from the last challenge, if one item has a flex-grow value of 1 and the other has a flex-grow value of 3, the one with the value of 3 will grow three times as mush as the other.
+
+There is a shortcut available to set several flex properties at once. The flex-grow, flex-shrink, and flex-basis properties can all be set together by using the flex property.
+For example, flex: 1 0 10px; will set the item to flex-grow: 1;, flex-shrink: 0;, and flex-basis: 10px;.
+The default property settings are flex: 0 1 auto;
+
+align-self allows you to adjust item's alignment individually, instead of setting them all at once. This is usdfull since other commone adjustment thechnique using the CSS properties float, clear and vertical-align do not work on flex items.
+align-self accepts the same values as align-items and will override any values set by the align-items property.
+
+Responsive Web Design Principles: Make Typography Responsive
+Instead of using em or px to size text, you can use viewport units for reponsive typography. Viewport units, like percentages, are relative units, but they are based off different items. Viewport units are relative to the viewport dimensions(width and height) of a device, and percentages are relative to the size of the parent container element.
+The four different viewport units are:
+vw(viewport width): 10vw would be 10% of the viewport's width.
+vh(viewport height): 3vh would be 3% of the viewport's height.
+vmin(viewport minimun): 70vmin would be 70% of the viewport's smaller dimension (height or width).
+vmax(viewport maximun): 100vmax would be 100% of the viewport's bigger dimension (height or width).
+Here is an example that sets a body tag to 30% of the viewport's width.
+body { width: 30vw; }
+
